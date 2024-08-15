@@ -1,12 +1,11 @@
-
 @font-face {
-    font-family: 'superscript';
-    src:url('../font/superscript.ttf.woff') format('woff'),
-        url('../font/superscript.ttf.svg#superscript') format('svg'),
-        url('../font/superscript.ttf.eot'),
-        url('../font/superscript.ttf.eot?#iefix') format('embedded-opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "superscript";
+  src: url("../font/superscript.ttf.woff") format("woff"),
+    url("../font/superscript.ttf.svg#superscript") format("svg"),
+    url("../font/superscript.ttf.eot"),
+    url("../font/superscript.ttf.eot?#iefix") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 html,
@@ -39,7 +38,7 @@ canvas {
 }
 
 .counter {
-  font-family: 'superscript', Arial, sans-serif;
+  font-family: "superscript", Arial, sans-serif;
   font-size: 22px;
   color: black;
   position: absolute;
@@ -62,7 +61,7 @@ canvas {
 }
 
 .mobileControls__button {
-  font-family: 'superscript', Arial, sans-serif;
+  font-family: "superscript", Arial, sans-serif;
   width: 60px;
   height: 60px;
   background: #ff4623;
@@ -82,4 +81,10 @@ canvas {
   .counter {
     display: none;
   }
+}
+.no-copy {
+  user-select: none; /* Ngăn chặn chọn văn bản */
+  -webkit-user-select: none; /* Cho trình duyệt WebKit (Safari, Chrome) */
+  -moz-user-select: none; /* Cho Firefox */
+  -ms-user-select: none; /* Cho Internet Explorer */
 }
