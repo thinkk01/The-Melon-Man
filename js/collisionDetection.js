@@ -16,8 +16,6 @@ game.checkCollisions = function () {
       watchTheseGuys.push(game.map.structures[i]);
     }
   }
-  // console.log(watchTheseGuys);
-  // Now precisely check if there occurs any collision
   for (var i = 0; i < watchTheseGuys.length; i++) {
     for (var j = 0; j < game.structures[watchTheseGuys[i].name].length; j++) {
       if (
@@ -45,18 +43,64 @@ game.checkCollisions = function () {
         game.player.y =
           Math.round(game.player.y / game.options.tileHeight) *
           game.options.tileHeight;
-        //match class
-        // var jumpHeight = game.player.lastY - game.player.y;
-        // console.log("Độ cao nhảy: " + jumpHeight);
-        // game.player.y =
-        //   Math.round(game.player.y / game.options.tileHeight) *
-        //   game.options.tileHeight;
-
-        // game.player.lastY = game.player.y;
         return true;
       }
     }
   }
-
-  return false;
+  for (var i = 0; i < watchTheseGuys.length; i++) {
+    var structure = watchTheseGuys[i];
+    if (structure.name === "fire" || structure.name === "knife") {
+      if (
+        game.player.x / game.options.tileWidth >= structure.x &&
+        game.player.x / game.options.tileWidth <= structure.x + 1 &&
+        game.player.y / game.options.tileHeight >= structure.y &&
+        game.player.y / game.options.tileHeight <= structure.y + 1
+      ) {
+        game.isOver = true;
+        return true;
+      }
+    }
+  }
 };
+game.updateObstacles = function () {
+  setInterval(function () {
+    for (var i = 0; i < game.map.structures.length; i++) {
+      var structure = game.map.structures[i];
+      if (structure.name === "knife") {
+        structure.x += 0.05;
+        structure.y += 0.1;
+
+        if (typeof structure.rotation === "undefined") {
+          structure.rotation = 0;
+        }
+        structure.rotation += 5;
+        if (structure.rotation >= 360) {
+          structure.rotation = 0;
+        }
+      }
+      if (structure.name === "fire") {
+        structure.y -= 0.05;
+      }
+    }
+    if (game.player.y < -300 && game.player.y > -350) {
+      for (var i = 0; i < 20; i++) {
+        game.map.structures.push({
+          name: "knife",
+          x: Math.floor(Math.random() * 8),
+          y: -i * 10,
+        });
+      }
+    }
+    if (game.player.y < -500) {
+      game.map.structures.push({
+        name: "knife",
+        x: Math.floor(Math.random() * 8),
+        y: game.player.y - 30,
+        rotation: 0,
+      });
+    }
+    game.requestRedraw();
+    console.log(game.player.x, game.player.y);
+  }, 100);
+};
+game.updateObstacles();
