@@ -15,14 +15,6 @@ game.player = {
       function () {
         if (this.isInAir && !this.jumpInterrupted) {
           this.y = startingY - maxHeight + Math.pow(-time / 3 + 11, 2);
-          console.log(
-            "Time:",
-            time,
-            " | Y position:",
-            this.y,
-            " StartingY",
-            startingY
-          );
           if (this.y < this.highestY) {
             this.highestY = this.y;
           }

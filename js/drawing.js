@@ -1,5 +1,4 @@
 // Functions responsible for drawing on canvas
-
 game.drawTile = function (tileColumn, tileRow, x, y) {
   game.context.drawImage(
     game.textures,
@@ -17,16 +16,32 @@ game.drawTile = function (tileColumn, tileRow, x, y) {
     game.options.tileHeight
   );
 };
-
 game.drawStructure = function (name, x, y) {
   var structure = game.structures[name];
+
   for (var i = 0; i < structure.length; i++) {
-    game.drawTile(
-      structure[i].tileColumn,
-      structure[i].tileRow,
-      structure[i].x + x,
-      structure[i].y + y
-    );
+    if (name === "knife") {
+      game.context.save();
+
+      game.context.translate(
+        (x + structure[i].x) * game.options.tileWidth,
+        (y + structure[i].y) * game.options.tileHeight
+      );
+
+      if (typeof structure[i].rotation !== "undefined") {
+        game.context.rotate((structure[i].rotation * Math.PI) / 180);
+      }
+      game.drawTile(structure[i].tileColumn, structure[i].tileRow, 0, 0);
+
+      game.context.restore();
+    } else {
+      game.drawTile(
+        structure[i].tileColumn,
+        structure[i].tileRow,
+        structure[i].x + x,
+        structure[i].y + y
+      );
+    }
   }
 };
 
@@ -110,8 +125,6 @@ game.redraw = function () {
     );
   }
 
-  // Draw the player
-  //   game.drawPlayer();
   game.drawPlayer();
   (game.counter.innerHTML =
     "A game by Karol Swierczek | Controls: A, D / arrows and SPACE | Points: " +

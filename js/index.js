@@ -5,6 +5,9 @@ var game = {
   counter: document.getElementById("counter"),
   textures: new Image(),
   ninja: new Image(),
+  knife: new Image(),
+  fire: new Image(),
+  fireKnife: new Image(),
   drawPending: false,
   backgrounds: {
     sky: {
@@ -22,6 +25,9 @@ var game = {
   options: {
     texturesPath: "textures.png",
     ninjaPath: "ninja.png",
+    knifePath: "knife.png",
+    firePath: "fire.png",
+    fireKnifePath: "fire-knife.png",
     tileWidth: 24,
     tileHeight: 24,
     canvasWidth: window.innerWidth / 3,
@@ -44,6 +50,9 @@ var game = {
 
     this.textures.src = this.options.texturesPath;
     this.ninja.src = this.options.ninjaPath;
+    this.knife.src = this.options.knifePath;
+    this.fire.src = this.options.firePath;
+    this.fireKnife.src = this.options.fireKnifePath;
     this.textures.onload = onInit;
   },
   map: {
